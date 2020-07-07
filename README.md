@@ -42,9 +42,6 @@ module "vnet-spoke" {
   # Provide valid VNet Address space for spoke virtual network.  
   vnet_address_space = ["10.2.0.0/16"]
 
-  # Adding Standard DDoS Plan, and custom DNS servers (Optional)
-  dns_servers = []
-
   # Hub network details to create peering and other setup
   hub_virtual_network_id          = var.hub_virtual_network_id
   hub_firewall_private_ip_address = "10.1.0.4"
