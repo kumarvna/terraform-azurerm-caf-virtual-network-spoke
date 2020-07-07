@@ -2,7 +2,7 @@
 
 This module deploys a spoke network using the [Microsoft recommended Hub-Spoke network topology](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke). Usually, only one hub in each region with multiple spokes and each of them can also be in separate subscriptions.
 
-If you are deploying the spoke VNet in the same Hub Network subscription, then make sure you have set the argument `is_spoke_deployed_to_same_hub_subscription = true`. This helps this module to manage the network watcher, flow logs and traffic analytics resources for all the subnets in the Virtual Network. If you are deploying the spoke virtual networks in separate subscriptions, then set this argument to `false`.
+>If you are deploying the spoke VNet in the same Hub Network subscription, then make sure you have set the argument `is_spoke_deployed_to_same_hub_subscription = true`. This helps this module to manage the network watcher, flow logs and traffic analytics resources for all the subnets in the Virtual Network. If you are deploying the spoke virtual networks in separate subscriptions, then set this argument to `false`.
 
 This is designed to quickly deploy hub and spoke architecture in the azure and further security hardening would be recommend to add appropriate NSG rules to use this for any production workloads.
 
@@ -37,7 +37,7 @@ module "vnet-spoke" {
   spoke_vnet_name     = "default-spoke"
 
   # Specify if you are deploying the spoke VNet using the same hub Azure subscription
-  is_spoke_deployed_to_same_hub_subscription = false
+  is_spoke_deployed_to_same_hub_subscription = true
 
   # Provide valid VNet Address space for spoke virtual network.  
   vnet_address_space = ["10.2.0.0/16"]
