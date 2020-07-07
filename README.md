@@ -91,8 +91,7 @@ module "vnet-spoke" {
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
         ["http", "100", "Inbound", "Allow", "Tcp", "80", "*", "0.0.0.0/0"],
-        ["https", "101", "Inbound", "Allow", "Tcp", "443", "*", ""],
-
+        ["sql_port", "101", "Inbound", "Allow", "Tcp", "1433", "*", ""],
       ]
 
       nsg_outbound_rules = [
@@ -243,14 +242,14 @@ module "vnet-spoke" {
   # Multiple Subnets, Service delegation, Service Endpoints
   subnets = {
     mgnt_subnet = {
-      subnet_name           = "management"
+      subnet_name           = "application"
       subnet_address_prefix = "10.1.2.0/24"
 
       nsg_inbound_rules = [
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
-        ["weballow", "200", "Inbound", "Allow", "Tcp", "22", "*", ""],
-        ["weballow1", "201", "Inbound", "Allow", "Tcp", "3389", "*", ""],
+        ["weballow", "200", "Inbound", "Allow", "Tcp", "80", "*", ""],
+        ["weballow1", "201", "Inbound", "Allow", "Tcp", "443", "*", ""],
       ]
 
       nsg_outbound_rules = [
