@@ -37,7 +37,7 @@ module "vnet-spoke" {
   # Possible values range between 30 and 730
   log_analytics_workspace_id           = var.log_analytics_workspace_id
   log_analytics_customer_id            = var.log_analytics_customer_id
-  log_analytics_logs_retention_in_days = 730
+  log_analytics_logs_retention_in_days = 30
 
   # Multiple Subnets, Service delegation, Service Endpoints, Network security groups
   # These are default subnets with required configuration, check README.md for more details
@@ -53,8 +53,8 @@ module "vnet-spoke" {
       nsg_inbound_rules = [
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
-        ["weballow", "200", "Inbound", "Allow", "Tcp", "22", "*", ""],
-        ["weballow1", "201", "Inbound", "Allow", "Tcp", "3389", "*", ""],
+        ["ssh", "200", "Inbound", "Allow", "Tcp", "22", "*", ""],
+        ["rdp", "201", "Inbound", "Allow", "Tcp", "3389", "*", ""],
       ]
 
       nsg_outbound_rules = [
@@ -71,7 +71,7 @@ module "vnet-spoke" {
       nsg_inbound_rules = [
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
-        ["weballow", "100", "Inbound", "Allow", "Tcp", "80", "*", "0.0.0.0/0"],
+        ["http", "100", "Inbound", "Allow", "Tcp", "80", "*", "0.0.0.0/0"],
         ["sql_port", "101", "Inbound", "Allow", "Tcp", "1433", "*", ""],
 
       ]
