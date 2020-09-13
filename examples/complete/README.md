@@ -11,7 +11,7 @@ This is designed to quickly deploy hub and spoke architecture in the azure and f
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "1.0.0"
+  version = "2.0.0"
 
   # By default, this module will create a resource group, proivde the name here
   # to use an existing resource group, specify the existing resource group name,
@@ -60,7 +60,7 @@ module "vnet-spoke" {
       nsg_outbound_rules = [
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
-        ["ntp_out", "103", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
+        ["ntp_out", "203", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
       ]
     }
 
@@ -78,7 +78,7 @@ module "vnet-spoke" {
       nsg_outbound_rules = [
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
-        ["ntp_out", "103", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
+        ["ntp_out", "102", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
       ]
     }
   }

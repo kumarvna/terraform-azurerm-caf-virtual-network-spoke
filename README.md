@@ -27,7 +27,7 @@ These types of resources are supported:
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "1.0.0"
+  version = "2.0.0"
 
   # By default, this module will create a resource group, proivde the name here
   # to use an existing resource group, specify the existing resource group name,
@@ -76,7 +76,7 @@ module "vnet-spoke" {
       nsg_outbound_rules = [
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
-        ["ntp_out", "103", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
+        ["ntp_out", "203", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
       ]
     }
 
@@ -94,7 +94,7 @@ module "vnet-spoke" {
       nsg_outbound_rules = [
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
-        ["ntp_out", "103", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
+        ["ntp_out", "102", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
       ]
     }
   }
@@ -142,7 +142,7 @@ This module supports enabling the service endpoint of your choosing under the vi
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "1.0.0"
+  version = "2.0.0"
 
   # .... omitted
 
@@ -170,7 +170,7 @@ This module Enable or Disable network policies for the private link endpoint on 
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "1.0.0"
+  version = "2.0.0"
 
   # .... omitted
 
@@ -200,7 +200,7 @@ This module Enable or Disable network policies for the private link service on t
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "1.0.0"
+  version = "2.0.0"
 
   # .... omitted
 
@@ -232,7 +232,7 @@ In the Source and Destination columns, `VirtualNetwork`, `AzureLoadBalancer`, an
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "1.0.0"
+  version = "2.0.0"
 
   # .... omitted
 
@@ -309,7 +309,7 @@ End Date of the Project|Date when this application, workload, or service is plan
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "1.0.0"
+  version = "2.0.0"
 
   # ... omitted
 

@@ -1,4 +1,3 @@
-# Resource Group
 output "resource_group_name" {
   description = "The name of the resource group in which resources are created"
   value       = module.vnet-spoke.resource_group_name
@@ -14,7 +13,6 @@ output "resource_group_location" {
   value       = module.vnet-spoke.resource_group_location
 }
 
-#vnet and Subnets 
 output "virtual_network_name" {
   description = "The name of the virtual network"
   value       = module.vnet-spoke.virtual_network_name
@@ -45,19 +43,16 @@ output "network_security_group_ids" {
   value       = module.vnet-spoke.network_security_group_ids
 }
 
-# DDoS Protection plan
 output "ddos_protection_plan_id" {
   description = "Ddos protection plan details"
   value       = module.vnet-spoke.ddos_protection_plan_id
 }
 
-# Network Watcher
 output "network_watcher_id" {
   description = "ID of Network Watcher"
   value       = module.vnet-spoke.network_watcher_id
 }
 
-# Route table
 output "route_table_name" {
   description = "The name of the route table"
   value       = module.vnet-spoke.route_table_name
