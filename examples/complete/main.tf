@@ -16,16 +16,16 @@ module "vnet-spoke" {
   vnet_address_space = ["10.2.0.0/16"]
 
   # Hub network details to create peering and other setup
-  hub_virtual_network_id          = "/subscriptions/f3410f97-ff27-4a79-b3ee-69a3e5c62beb/resourceGroups/rg-hub-demo-internal-shared-westeurope-001/providers/Microsoft.Network/virtualNetworks/vnet-default-hub-westeurope"
+  hub_virtual_network_id          = var.hub_virtual_network_id
   hub_firewall_private_ip_address = "10.1.0.4"
   private_dns_zone_name           = "publiccloud.example.com"
-  hub_storage_account_id          = "/subscriptions/f3410f97-ff27-4a79-b3ee-69a3e5c62beb/resourceGroups/rg-hub-demo-internal-shared-westeurope-001/providers/Microsoft.Storage/storageAccounts/stdiaglogsdefaulthub"
+  hub_storage_account_id          = var.hub_storage_account_id
 
   # (Required) To enable Azure Monitoring and flow logs
   # pick the values for log analytics workspace which created by Hub module
   # Possible values range between 30 and 730
-  log_analytics_workspace_id           = "/subscriptions/f3410f97-ff27-4a79-b3ee-69a3e5c62beb/resourcegroups/rg-hub-demo-internal-shared-westeurope-001/providers/microsoft.operationalinsights/workspaces/logaws-l2iokhxn-default-hub-westeurope"
-  log_analytics_customer_id            = "612268ec-5ced-4320-8aab-f7b3d1146437"
+  log_analytics_workspace_id           = var.log_analytics_workspace_id
+  log_analytics_customer_id            = var.log_analytics_customer_id
   log_analytics_logs_retention_in_days = 30
 
   # Multiple Subnets, Service delegation, Service Endpoints, Network security groups
@@ -49,7 +49,7 @@ module "vnet-spoke" {
       nsg_outbound_rules = [
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
-        ["ntp_out", "202", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
+        ["ntp_out", "203", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
       ]
     }
 
@@ -67,7 +67,7 @@ module "vnet-spoke" {
       nsg_outbound_rules = [
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
-        ["ntp_out", "103", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
+        ["ntp_out", "102", "Outbound", "Allow", "Udp", "123", "", "0.0.0.0/0"],
       ]
     }
   }
