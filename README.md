@@ -323,6 +323,20 @@ module "vnet-spoke" {
 }
 ```
 
+## Requirements
+
+Name | Version
+-----|--------
+terraform | >= 0.13
+azurerm | ~> 2.27
+
+## Providers
+
+| Name | Version |
+|------|---------|
+azurerm | ~> 2.27
+random | n/a
+
 ## Inputs
 
 Name | Description | Type | Default
