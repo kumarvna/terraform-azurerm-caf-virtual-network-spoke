@@ -27,7 +27,7 @@ These types of resources are supported:
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.0.0"
+  version = "2.1.0"
 
   # By default, this module will create a resource group, proivde the name here
   # to use an existing resource group, specify the existing resource group name,
@@ -142,7 +142,7 @@ This module supports enabling the service endpoint of your choosing under the vi
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.0.0"
+  version = "2.1.0"
 
   # .... omitted
 
@@ -170,7 +170,7 @@ This module Enable or Disable network policies for the private link endpoint on 
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.0.0"
+  version = "2.1.0"
 
   # .... omitted
 
@@ -200,7 +200,7 @@ This module Enable or Disable network policies for the private link service on t
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.0.0"
+  version = "2.1.0"
 
   # .... omitted
 
@@ -232,7 +232,7 @@ In the Source and Destination columns, `VirtualNetwork`, `AzureLoadBalancer`, an
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.0.0"
+  version = "2.1.0"
 
   # .... omitted
 
@@ -309,7 +309,7 @@ End Date of the Project|Date when this application, workload, or service is plan
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.0.0"
+  version = "2.1.0"
 
   # ... omitted
 
@@ -328,13 +328,13 @@ module "vnet-spoke" {
 Name | Version
 -----|--------
 terraform | >= 0.13
-azurerm | ~> 2.27
+azurerm | >= 2.59.0
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-azurerm | ~> 2.27
+azurerm | >= 2.59.0
 random | n/a
 
 ## Inputs
