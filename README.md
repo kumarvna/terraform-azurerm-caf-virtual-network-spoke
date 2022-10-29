@@ -162,7 +162,7 @@ This module supports enabling the service endpoint of your choosing under the vi
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.1.0"
+  version = "2.2.0"
 
   # .... omitted
 
@@ -170,7 +170,7 @@ module "vnet-spoke" {
   subnets = {
     mgnt_subnet = {
       subnet_name           = "management"
-      subnet_address_prefix = "10.1.2.0/24"
+      subnet_address_prefix = "10.2.2.0/24"
 
       service_endpoints     = ["Microsoft.Storage"]  
     }
@@ -190,7 +190,7 @@ This module Enable or Disable network policies for the private link endpoint on 
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.1.0"
+  version = "2.2.0"
 
   # .... omitted
 
@@ -198,7 +198,7 @@ module "vnet-spoke" {
   subnets = {
     mgnt_subnet = {
       subnet_name           = "management"
-      subnet_address_prefix = "10.1.2.0/24"
+      subnet_address_prefix = "10.2.2.0/24"
       private_endpoint_network_policies_enabled = true
 
         }
@@ -220,7 +220,7 @@ This module Enable or Disable network policies for the private link service on t
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.1.0"
+  version = "2.2.0"
 
   # .... omitted
 
@@ -228,7 +228,7 @@ module "vnet-spoke" {
   subnets = {
     mgnt_subnet = {
       subnet_name           = "management"
-      subnet_address_prefix = "10.1.2.0/24"
+      subnet_address_prefix = "10.2.2.0/24"
       private_link_service_network_policies_enabled = true
 
         }
@@ -252,7 +252,7 @@ In the Source and Destination columns, `VirtualNetwork`, `AzureLoadBalancer`, an
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.1.0"
+  version = "2.2.0"
 
   # .... omitted
 
@@ -260,7 +260,7 @@ module "vnet-spoke" {
   subnets = {
     mgnt_subnet = {
       subnet_name           = "application"
-      subnet_address_prefix = "10.1.2.0/24"
+      subnet_address_prefix = "10.2.2.0/24"
 
       nsg_inbound_rules = [
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
@@ -329,7 +329,7 @@ End Date of the Project|Date when this application, workload, or service is plan
 ```hcl
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.1.0"
+  version = "2.2.0"
 
   # ... omitted
 
