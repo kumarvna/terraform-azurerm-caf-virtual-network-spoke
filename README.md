@@ -25,9 +25,29 @@ These types of resources are supported:
 ## Module Usage
 
 ```hcl
+# Azurerm provider configuration
+provider "azurerm" {
+  features {}
+}
+
+data "azurerm_virtual_network" "hub-vnet" {
+  name                = "vnet-default-hub-westeurope"
+  resource_group_name = "rg-hub-demo-internal-shared-westeurope-001"
+}
+
+data "azurerm_storage_account" "hub-st" {
+  name                = "stdiaglogs3hfeutdh"
+  resource_group_name = "rg-hub-demo-internal-shared-westeurope-001"
+}
+
+data "azurerm_log_analytics_workspace" "hub-logws" {
+  name                = "logaws-3hfeutdh-default-hub-westeurope"
+  resource_group_name = "rg-hub-demo-internal-shared-westeurope-001"
+}
+
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.1.0"
+  version = "2.2.0"
 
   # By default, this module will create a resource group, proivde the name here
   # to use an existing resource group, specify the existing resource group name,
@@ -43,16 +63,16 @@ module "vnet-spoke" {
   vnet_address_space = ["10.2.0.0/16"]
 
   # Hub network details to create peering and other setup
-  hub_virtual_network_id          = var.hub_virtual_network_id
+  hub_virtual_network_id          = data.azurerm_virtual_network.hub-vnet.id
   hub_firewall_private_ip_address = "10.1.0.4"
   private_dns_zone_name           = "publiccloud.example.com"
-  hub_storage_account_id          = var.hub_storage_account_id
+  hub_storage_account_id          = data.azurerm_storage_account.hub-st.id
 
   # (Required) To enable Azure Monitoring and flow logs
   # pick the values for log analytics workspace which created by Hub module
   # Possible values range between 30 and 730
-  log_analytics_workspace_id           = var.log_analytics_workspace_id
-  log_analytics_customer_id            = var.log_analytics_customer_id
+  log_analytics_workspace_id           = data.azurerm_log_analytics_workspace.hub-logws.id
+  log_analytics_customer_id            = data.azurerm_log_analytics_workspace.hub-logws.workspace_id
   log_analytics_logs_retention_in_days = 30
 
   # Multiple Subnets, Service delegation, Service Endpoints, Network security groups
@@ -161,9 +181,9 @@ module "vnet-spoke" {
 }
 ```
 
-## `enforce_private_link_endpoint_network_policies` - Private Link Endpoint on the subnet
+## `private_endpoint_network_policies_enabled` - Private Link Endpoint on the subnet
 
-Network policies, like network security groups (NSG), are not supported for Private Link Endpoints. In order to deploy a Private Link Endpoint on a given subnet, you must set the `enforce_private_link_endpoint_network_policies` attribute to `true`. This setting is only applicable for the Private Link Endpoint, for all other resources in the subnet access is controlled based via the Network Security Group which can be configured using the `azurerm_subnet_network_security_group_association` resource.
+Network policies, like network security groups (NSG), are not supported for Private Link Endpoints. In order to deploy a Private Link Endpoint on a given subnet, you must set the `private_endpoint_network_policies_enabled` attribute to `true`. This setting is only applicable for the Private Link Endpoint, for all other resources in the subnet access is controlled based via the Network Security Group which can be configured using the `azurerm_subnet_network_security_group_association` resource.
 
 This module Enable or Disable network policies for the private link endpoint on the subnet. The default value is `false`. If you are enabling the Private Link Endpoints on the subnet you shouldn't use Private Link Services as it's conflicts.
 
@@ -179,7 +199,7 @@ module "vnet-spoke" {
     mgnt_subnet = {
       subnet_name           = "management"
       subnet_address_prefix = "10.1.2.0/24"
-      enforce_private_link_endpoint_network_policies = true
+      private_endpoint_network_policies_enabled = true
 
         }
       }
@@ -191,9 +211,9 @@ module "vnet-spoke" {
 }
 ```
 
-## `enforce_private_link_service_network_policies` - private link service on the subnet
+## `private_link_service_network_policies_enabled` - private link service on the subnet
 
-In order to deploy a Private Link Service on a given subnet, you must set the `enforce_private_link_service_network_policies` attribute to `true`. This setting is only applicable for the Private Link Service, for all other resources in the subnet access is controlled based on the Network Security Group which can be configured using the `azurerm_subnet_network_security_group_association` resource.
+In order to deploy a Private Link Service on a given subnet, you must set the `private_link_service_network_policies_enabled` attribute to `true`. This setting is only applicable for the Private Link Service, for all other resources in the subnet access is controlled based on the Network Security Group which can be configured using the `azurerm_subnet_network_security_group_association` resource.
 
 This module Enable or Disable network policies for the private link service on the subnet. The default value is `false`. If you are enabling the Private Link service on the subnet then, you shouldn't use Private Link endpoints as it's conflicts.
 
@@ -209,7 +229,7 @@ module "vnet-spoke" {
     mgnt_subnet = {
       subnet_name           = "management"
       subnet_address_prefix = "10.1.2.0/24"
-      enforce_private_link_service_network_policies = true
+      private_link_service_network_policies_enabled = true
 
         }
       }
@@ -327,14 +347,14 @@ module "vnet-spoke" {
 
 Name | Version
 -----|--------
-terraform | >= 0.13
-azurerm | >= 2.59.0
+terraform | >= 1.1.9
+azurerm | >= 3.28.0
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-azurerm | >= 2.59.0
+azurerm | >= 3.28.0
 random | n/a
 
 ## Inputs
