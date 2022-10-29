@@ -35,7 +35,7 @@ output "subnet_ids" {
 
 output "subnet_address_prefixes" {
   description = "List of address prefix for subnets"
-  value       = [for s in azurerm_subnet.snet : s.address_prefix]
+  value       = [for s in azurerm_subnet.snet : s.address_prefixes]
 }
 
 output "network_security_group_ids" {

@@ -9,9 +9,29 @@ This is designed to quickly deploy hub and spoke architecture in the azure and f
 ## Module Usage
 
 ```hcl
+# Azurerm provider configuration
+provider "azurerm" {
+  features {}
+}
+
+data "azurerm_virtual_network" "hub-vnet" {
+  name                = "vnet-default-hub-westeurope"
+  resource_group_name = "rg-hub-demo-internal-shared-westeurope-001"
+}
+
+data "azurerm_storage_account" "hub-st" {
+  name                = "stdiaglogs3hfeutdh"
+  resource_group_name = "rg-hub-demo-internal-shared-westeurope-001"
+}
+
+data "azurerm_log_analytics_workspace" "hub-logws" {
+  name                = "logaws-3hfeutdh-default-hub-westeurope"
+  resource_group_name = "rg-hub-demo-internal-shared-westeurope-001"
+}
+
 module "vnet-spoke" {
   source  = "kumarvna/caf-virtual-network-spoke/azurerm"
-  version = "2.1.0"
+  version = "2.2.0"
 
   # By default, this module will create a resource group, proivde the name here
   # to use an existing resource group, specify the existing resource group name,
@@ -27,16 +47,16 @@ module "vnet-spoke" {
   vnet_address_space = ["10.2.0.0/16"]
 
   # Hub network details to create peering and other setup
-  hub_virtual_network_id          = var.hub_virtual_network_id
+  hub_virtual_network_id          = data.azurerm_virtual_network.hub-vnet.id
   hub_firewall_private_ip_address = "10.1.0.4"
   private_dns_zone_name           = "publiccloud.example.com"
-  hub_storage_account_id          = var.hub_storage_account_id
+  hub_storage_account_id          = data.azurerm_storage_account.hub-st.id
 
   # (Required) To enable Azure Monitoring and flow logs
   # pick the values for log analytics workspace which created by Hub module
   # Possible values range between 30 and 730
-  log_analytics_workspace_id           = var.log_analytics_workspace_id
-  log_analytics_customer_id            = var.log_analytics_customer_id
+  log_analytics_workspace_id           = data.azurerm_log_analytics_workspace.hub-logws.id
+  log_analytics_customer_id            = data.azurerm_log_analytics_workspace.hub-logws.workspace_id
   log_analytics_logs_retention_in_days = 30
 
   # Multiple Subnets, Service delegation, Service Endpoints, Network security groups
@@ -73,8 +93,8 @@ module "vnet-spoke" {
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
         ["http", "100", "Inbound", "Allow", "Tcp", "80", "*", "0.0.0.0/0"],
         ["sql_port", "101", "Inbound", "Allow", "Tcp", "1433", "*", ""],
-
       ]
+
       nsg_outbound_rules = [
         # [name, priority, direction, access, protocol, destination_port_range, source_address_prefix, destination_address_prefix]
         # To use defaults, use "" without adding any value and to use this subnet as a source or destination prefix.
