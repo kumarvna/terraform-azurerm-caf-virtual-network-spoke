@@ -25,7 +25,7 @@ variable "is_spoke_deployed_to_same_hub_subscription" {
 
 variable "vnet_address_space" {
   description = "The address space to be used for the Azure virtual network."
-  default     = ["10.1.0.0/16"]
+  default     = ["10.2.0.0/16"]
 }
 
 variable "create_ddos_plan" {
